@@ -1,6 +1,6 @@
 .header {
   height: 60px;
-  width: 100%;
+  width: 100vw;
   background-color: #14052f;
   display: inline-flex;
   justify-content: space-evenly;
@@ -31,12 +31,27 @@
     }
   }
 
-  &__btn {
-    background-color: #14052f;
+  &__search-box {
+    background-color: transparent;
+    display: inline-flex;
+    outline: none;
 
-    &:hover {
-      background-color: #220951;
-      border: solid 1px #220951;
+    input {
+      background-color: aliceblue;
+      color: #14052f;
+      padding: 5px;
+      border: none;
+      border-radius: 25px;
+      padding-left: 15px;
+      outline: none;
+    }
+
+    svg {
+      width: 15px;
+      margin-left: -15%;
+      background-color: transparent;
+      color: #14052f;
+      cursor: pointer;
     }
   }
 }
