@@ -1,5 +1,6 @@
 import Header from "../header/Header";
 import Slider from "../slider/Slider";
+import MovieLists from "../movieLists/MovieLists";
 import "./App.scss";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="app">
       <Header />
       <Slider />
+      <MovieLists />
     </div>
   );
 }

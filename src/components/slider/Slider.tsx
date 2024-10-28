@@ -24,6 +24,8 @@ export default function Slider() {
     const handleResize = () => {
       if (window.innerWidth > 1440) {
         setSlidesPerView(3);
+      } else if (window.innerWidth < 615) {
+        setSlidesPerView(1);
       }
     };
     window.addEventListener("resize", handleResize);
@@ -37,8 +39,12 @@ export default function Slider() {
       className="slider"
       modules={[Navigation, Pagination, Autoplay]}
       slidesPerView={slidesPerView}
+      speed={1500}
       spaceBetween={0}
-      autoplay={true}
+      autoplay={{
+        delay: 3000,
+        pauseOnMouseEnter: true,
+      }}
       navigation={true}
       pagination={{
         clickable: true,
