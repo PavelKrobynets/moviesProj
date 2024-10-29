@@ -1,0 +1,41 @@
+.movie-placeholder {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+
+  &__image {
+    width: 140px;
+    min-height: 180px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    background-color: #ffffff5c;
+  }
+
+  &__info {
+    padding: 10px;
+  }
+
+  &__info-title {
+    font-weight: bold;
+    line-height: 0px;
+  }
+
+  &.flashing {
+    animation: flashing 1.6s infinite;
+  }
+
+  @keyframes flashing {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+}

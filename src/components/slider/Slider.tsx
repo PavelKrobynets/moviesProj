@@ -16,10 +16,12 @@ interface Movie {
 export default function Slider() {
   const [movies, setMovies] = useState<Movie[] | null>(null);
   const [slidesPerView, setSlidesPerView] = useState<number>(2);
-  const request = useRequest();
+  const request = useRequest({
+    url: import.meta.env.VITE_TRENDING_MOVIES,
+  });
 
   useEffect(() => {
-    request.fetchTrendingMovies().then((res) => setMovies(res.results));
+    request.fetchMovies().then((res) => setMovies(res.results));
 
     const handleResize = () => {
       if (window.innerWidth > 1440) {

@@ -1,4 +1,8 @@
-export default function useRequest() {
+interface URL {
+  url: string;
+}
+
+export default function useRequest({ url }: URL) {
   const options = {
     method: "GET",
     headers: {
@@ -7,12 +11,9 @@ export default function useRequest() {
     },
   };
 
-  const fetchTrendingMovies = async () => {
+  const fetchMovies = async () => {
     try {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
-        options
-      );
+      const response = await fetch(url, options);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
@@ -25,5 +26,5 @@ export default function useRequest() {
     }
   };
 
-  return { fetchTrendingMovies };
+  return { fetchMovies, options };
 }
