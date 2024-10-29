@@ -4,9 +4,9 @@ import "./movieLists.scss";
 export default function MovieLists() {
   return (
     <div className="movie-lists">
-      <MovieList />
-      <MovieList />
-      <MovieList />
+      <MovieList id="list1" />
+      <MovieList id="list2" />
+      <MovieList id="list3" />
     </div>
   );
 }
