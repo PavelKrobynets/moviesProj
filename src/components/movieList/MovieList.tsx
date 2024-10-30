@@ -19,16 +19,16 @@ interface Props {
 export default function MovieList({ arrow, url, title }: Props) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const request = useRequest({
-    url: url,
-  });
+  const request = useRequest();
 
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const res = await request.fetchMovies();
-        setMovies(res.results);
+        const res = await request.fetchMovies({
+          url: url,
+        });
+        setMovies(res);
       } catch (error) {
         console.error("Failed to fetch movies:", error);
       } finally {

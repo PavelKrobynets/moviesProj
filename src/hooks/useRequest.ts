@@ -2,7 +2,7 @@ interface URL {
   url: string;
 }
 
-export default function useRequest({ url }: URL) {
+export default function useRequest() {
   const options = {
     method: "GET",
     headers: {
@@ -11,9 +11,9 @@ export default function useRequest({ url }: URL) {
     },
   };
 
-  const fetchMovies = async () => {
+  const fetchGenres = async () => {
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(import.meta.env.VITE_GENRES, options);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
@@ -21,10 +21,25 @@ export default function useRequest({ url }: URL) {
       console.log(data);
       return data;
     } catch (error) {
+      console.log("Failed fetching genres", error);
+      throw error;
+    }
+  };
+
+  const fetchMovies = async ({ url }: URL) => {
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const data = await response.json();
+      console.log(data.results);
+      return data.results;
+    } catch (error) {
       console.error(`Failed fetching trending movies`, error);
       throw error;
     }
   };
 
-  return { fetchMovies, options };
+  return { fetchMovies, fetchGenres };
 }
