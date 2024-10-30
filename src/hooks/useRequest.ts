@@ -1,8 +1,8 @@
-interface URL {
-  url: string;
-}
+import { useState, useEffect } from "react";
+import { URL, Genre, Movie, MovieWithGenres } from "../types/type";
 
 export default function useRequest() {
+  const [genres, setGenres] = useState<Genre[] | undefined>();
   const options = {
     method: "GET",
     headers: {
@@ -11,6 +11,10 @@ export default function useRequest() {
     },
   };
 
+  useEffect(() => {
+    fetchGenres();
+  }, []);
+
   const fetchGenres = async () => {
     try {
       const response = await fetch(import.meta.env.VITE_GENRES, options);
@@ -18,8 +22,8 @@ export default function useRequest() {
         throw new Error(response.statusText);
       }
       const data = await response.json();
-      console.log(data);
-      return data;
+      await setGenres(data);
+      setGenres(data.genres);
     } catch (error) {
       console.log("Failed fetching genres", error);
       throw error;
@@ -33,13 +37,23 @@ export default function useRequest() {
         throw new Error(response.statusText);
       }
       const data = await response.json();
-      console.log(data.results);
-      return data.results;
+      const moviesWithGenres: MovieWithGenres[] = data.results.map(
+        (movie: Movie) => ({
+          ...movie,
+          genres: movie.genre_ids
+            .map((id) => {
+              const genre = genres?.find((genre) => genre.id === id);
+              return genre ? genre.name : "";
+            })
+            .filter(Boolean),
+        })
+      );
+      console.log(moviesWithGenres);
+      return moviesWithGenres;
     } catch (error) {
       console.error(`Failed fetching trending movies`, error);
       throw error;
     }
   };
-
-  return { fetchMovies, fetchGenres };
+  return { fetchMovies, fetchGenres, genres };
 }

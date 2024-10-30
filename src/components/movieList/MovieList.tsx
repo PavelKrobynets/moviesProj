@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import useRequest from "../../hooks/useRequest.ts";
-import { Movie } from "../types/type.ts";
+import { MovieWithGenres } from "../../types/type.ts";
 import "swiper/css";
 import "swiper/css/navigation";
 import "./movieList.scss";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function MovieList({ arrow, url, title }: Props) {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<MovieWithGenres[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const request = useRequest();
 
@@ -25,9 +25,7 @@ export default function MovieList({ arrow, url, title }: Props) {
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const res = await request.fetchMovies({
-          url: url,
-        });
+        const res = await request.fetchMovies({ url: url });
         setMovies(res);
       } catch (error) {
         console.error("Failed to fetch movies:", error);
@@ -72,6 +70,7 @@ export default function MovieList({ arrow, url, title }: Props) {
                   img={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                   title={movie.title}
                   date={movie.release_date}
+                  genres={movie.genres}
                 />
               </SwiperSlide>
             ))}
