@@ -2,28 +2,24 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import useRequest from "../../hooks/useRequest";
 import { useEffect, useState } from "react";
+import { Movie } from "../../types/type";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./slider.scss";
 
-interface Movie {
-  backdrop_path: string;
-  id: number;
-  title: string;
-}
-
 export default function Slider() {
   const [movies, setMovies] = useState<Movie[] | null>(null);
   const [slidesPerView, setSlidesPerView] = useState<number>(2);
-  const request = useRequest();
+  const { fetchMovies, isLoadingGenres } = useRequest();
 
   useEffect(() => {
-    request
-      .fetchMovies({
-        url: import.meta.env.VITE_TRENDING_MOVIES,
-      })
-      .then((res) => setMovies(res));
+    if (isLoadingGenres) {
+      return;
+    }
+    fetchMovies({
+      url: import.meta.env.VITE_TRENDING_MOVIES,
+    }).then((res) => setMovies(res));
 
     const handleResize = () => {
       if (window.innerWidth > 1440) {
@@ -36,7 +32,7 @@ export default function Slider() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isLoadingGenres]);
 
   return (
     <Swiper
