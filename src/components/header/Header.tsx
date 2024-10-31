@@ -12,10 +12,7 @@ export default function Header() {
           <li className="header__nav-item">Popular</li>
         </ul>
       </nav>
-      <div className="header__search-box">
-        <input type="text" placeholder="Search" />
-        <Search />
-      </div>
+      <Search className="header__icon" />
     </header>
   );
 }

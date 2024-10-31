@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { URL, Genre, Movie, MovieWithGenres } from "../types/type";
-import { rejects } from "assert";
 
 export default function useRequest() {
   const [genres, setGenres] = useState<Genre[] | undefined>();

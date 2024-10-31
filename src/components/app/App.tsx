@@ -1,14 +1,14 @@
 import Header from "../header/Header";
-import Slider from "../slider/Slider";
-import MovieLists from "../movieLists/MovieLists";
+import MainPage from "../../pages/MainPage";
+// import SearchPage from "../../pages/SearchPage";
 import "./App.scss";
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <Slider />
-      <MovieLists />
+      <MainPage />
+      {/* <SearchPage/> */}
     </div>
   );
 }
