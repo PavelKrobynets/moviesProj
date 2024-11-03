@@ -41,5 +41,10 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
+    transition: background-color 0.5s;
+
+    &:hover {
+      background-color: #d3c8e6;
+    }
   }
 }

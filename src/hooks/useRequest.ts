@@ -34,9 +34,7 @@ export default function useRequest() {
     console.log("Fetching genres", genres);
   }, []);
 
-  const fetchMovies = async ({ url }: URL): Promise<Movie[]> => {
-    fetch(url, options).then((res) => res.json());
-
+  const fetchMovies = async (): Promise<Movie[]> => {
     try {
       const response = await fetch(
         import.meta.env.VITE_TRENDING_MOVIES,
@@ -93,5 +91,9 @@ export default function useRequest() {
     });
   };
 
-  return { fetchMovies, fetchMoviesWithGenres, isLoadingGenres: isLoading };
+  return {
+    fetchMovies,
+    fetchMoviesWithGenres,
+    isLoadingGenres: isLoading,
+  };
 }
