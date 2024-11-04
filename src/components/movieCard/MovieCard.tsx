@@ -1,19 +1,32 @@
 import "./movieCard.scss";
+import { MovieWithGenres } from "../../types/type";
 
-interface Props {
-  img: string;
-  title: string;
-  date: string;
-  genres: string[];
+interface MovieCardProps {
+  movie: MovieWithGenres;
 }
 
-export default function MovieCard({ img, title, date, genres }: Props) {
+export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <div className="movie-card">
-      <img src={img} alt="movie-image" className="movie-card__image" />
+      {movie.poster_path ? (
+        <img
+          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          alt="movie-image"
+          className="movie-card__image"
+        />
+      ) : (
+        <img
+          src="/src/assets/poster-placeholder.jpg"
+          alt="default-movie-image"
+          className="movie-card__image"
+        />
+      )}
+
       <div className="movie-card__info">
-        <p className="movie-card__info-title">{title}</p>
-        <p className="movie-card__info-text">{`${date}, ${genres.join()}`}</p>
+        <p className="movie-card__info-title">{movie.title}</p>
+        <p className="movie-card__info-text">{`${
+          movie.release_date
+        }, ${movie.genres.join()}`}</p>
       </div>
     </div>
   );

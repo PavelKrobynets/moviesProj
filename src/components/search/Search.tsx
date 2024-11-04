@@ -5,9 +5,12 @@ import { MovieWithGenres } from "../../types/type.ts";
 import { debounce } from "lodash";
 import "./search.scss";
 
-export default function Search() {
+interface SearchProps {
+  getMovies: (movies: MovieWithGenres[]) => void;
+}
+
+export default function Search({ getMovies }: SearchProps) {
   const [input, setInput] = useState<string>();
-  const [results, setResults] = useState<MovieWithGenres[] | unknown>();
   const { fetchMoviesWithGenres } = useRequest();
   const ref = useRef<HTMLInputElement | null>(null);
 
@@ -22,18 +25,17 @@ export default function Search() {
             const searchResults = await fetchMoviesWithGenres({
               url: `${import.meta.env.VITE_SEARCH}query=${encodeURIComponent(
                 value
-              )}&include_adult=true&language=en-US&page=1`,
+              )}&include_adult=false&language=en-US&page=1`,
             });
-            setResults(searchResults);
+            getMovies(searchResults);
           } catch (error) {
             console.error("Error fetching movies:", error);
-            setResults([]);
+            getMovies([]);
           }
         } else {
-          setResults([]);
+          getMovies([]);
         }
       }
-      console.log(results);
     }, 300),
     [input]
   );
@@ -46,13 +48,21 @@ export default function Search() {
           <input
             ref={ref}
             type="search"
-            onChange={(e) => setInput(e.target.validationMessage)}
+            onChange={(e) => {
+              setInput(e.target.validationMessage);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                debouncedHandleInput();
+              }
+            }}
             placeholder="Search for a movie"
             className="search-field__input"
           ></input>
           <button
             onClick={debouncedHandleInput}
             className="search-field__button"
+            type="submit"
           >
             <SearchIcon />
           </button>
