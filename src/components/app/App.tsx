@@ -1,6 +1,5 @@
 import Header from "../header/Header";
-import MainPage from "../../pages/MainPage";
-import SearchPage from "../../pages/SearchPage";
+import { MainPage, SearchPage, MoviePage, Page404 } from "../../pages/index";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.scss";
 
@@ -10,8 +9,10 @@ function App() {
       <div className="app">
         <Header />
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MoviePage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/movie/:id" element={<MoviePage />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </div>
     </Router>
