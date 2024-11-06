@@ -9,9 +9,9 @@ function App() {
       <div className="app">
         <Header />
         <Routes>
-          <Route path="/" element={<MoviePage />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/movie/:id" element={<MoviePage />} />
+          <Route path="/movies/:id" element={<MoviePage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </div>

@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import useRequest from "../../hooks/useRequest.ts";
 import { MovieWithGenres } from "../../types/type.ts";
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "./movieList.scss";
@@ -19,7 +20,7 @@ interface Props {
 export default function MovieList({ arrow, url, title }: Props) {
   const [movies, setMovies] = useState<MovieWithGenres[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { fetchMoviesWithGenres, isLoadingGenres } = useRequest();
+  const { fetchMoviesWithGenres } = useRequest();
 
   useEffect(() => {
     const fetchMoviesData = async () => {
@@ -35,8 +36,9 @@ export default function MovieList({ arrow, url, title }: Props) {
         setLoading(false);
       }
     };
+
     fetchMoviesData();
-  }, [isLoadingGenres]);
+  }, [url]);
 
   return (
     <div className="movie-list">
@@ -67,13 +69,15 @@ export default function MovieList({ arrow, url, title }: Props) {
           >
             {movies.map((movie) => (
               <SwiperSlide key={movie.id}>
-                <MovieCard
-                  // img={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  // title={movie.title}
-                  // date={movie.release_date}
-                  // genres={movie.genres}
-                  movie={movie}
-                />
+                <Link to={`/movies/${movie.id}`}>
+                  <MovieCard
+                    // img={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    // title={movie.title}
+                    // date={movie.release_date}
+                    // genres={movie.genres}
+                    movie={movie}
+                  />
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
