@@ -11,28 +11,28 @@ import "./slider.scss";
 export default function Slider() {
   const [movies, setMovies] = useState<Movie[] | null>(null);
   const [slidesPerView, setSlidesPerView] = useState<number>(2);
-  const { fetchMovies, isLoadingGenres } = useRequest();
+  const { fetchMovies } = useRequest();
+
+  const handleResize = () => {
+    if (window.innerWidth > 1400) {
+      setSlidesPerView(3);
+    } else if (window.innerWidth < 615) {
+      setSlidesPerView(1);
+    } else {
+      setSlidesPerView(2);
+    }
+  };
 
   useEffect(() => {
-    if (isLoadingGenres) {
-      return;
-    }
-    fetchMovies({
-      url: import.meta.env.VITE_TRENDING_MOVIES,
-    }).then((res) => setMovies(res));
+    fetchMovies().then((res) => setMovies(res));
 
-    const handleResize = () => {
-      if (window.innerWidth > 1440) {
-        setSlidesPerView(3);
-      } else if (window.innerWidth < 615) {
-        setSlidesPerView(1);
-      }
-    };
+    handleResize();
+
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isLoadingGenres]);
+  }, []);
 
   return (
     <Swiper

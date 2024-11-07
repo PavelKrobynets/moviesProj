@@ -42,7 +42,7 @@ export default function TypeMovieGrid({ type }: IProps) {
       }
     };
     fetchMovies();
-  }, []);
+  }, [type]);
 
   const title: string = type
     ? type.charAt(0).toUpperCase() + type.slice(1)
