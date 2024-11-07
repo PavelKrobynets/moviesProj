@@ -26,7 +26,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         <p className="movie-card__info-title">{movie.title}</p>
         <p className="movie-card__info-text">{`${
           movie.release_date
-        }, ${movie.genres.join()}`}</p>
+        }, ${movie.genres.join(" ")}`}</p>
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ export default function MovieList({ arrow, url, title }: Props) {
           >
             {movies.map((movie) => (
               <SwiperSlide key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>
+                <Link to={`/movie/${movie.id}`}>
                   <MovieCard
                     // img={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     // title={movie.title}

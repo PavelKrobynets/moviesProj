@@ -16,19 +16,28 @@
   }
 
   &__nav {
+    margin-left: -5%;
     &-list {
       display: inline-flex;
       justify-content: space-between;
       list-style: none;
-      gap: 15%;
+      gap: 5%;
     }
     &-item {
+      font-size: 14px;
       color: aliceblue;
       cursor: pointer;
       transition: font-size 0.5s;
+
+      a {
+        color: aliceblue;
+
+        &:hover {
+          color: whitesmoke;
+        }
+      }
       &:hover {
-        color: white;
-        font-size: 18px;
+        font-size: 16px;
       }
     }
   }

@@ -14,7 +14,7 @@ export default function MovieGrid({ movies }: MovieGridProps) {
       <div className="movie-grid__container">
         {movies && movies.length > 0 ? (
           movies.map((movie) => (
-            <Link to={`/movies/${movie.id}`}>
+            <Link key={movie.id} to={`/movie/${movie.id}`}>
               <MovieCard key={movie.id} movie={movie} />
             </Link>
           ))

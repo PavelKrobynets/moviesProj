@@ -106,35 +106,6 @@ export default function useRequest() {
     }
   };
 
-  // const fetchMovieById = async ({ url }: URL): Promise<MovieWithGenres> => {
-  //   const genres = await ensureGenresLoaded();
-
-  //   try {
-  //     const response = await fetch(url, options);
-  //     if (!response.ok) {
-  //       throw new Error(response.statusText);
-  //     }
-  //     const data = await response.json();
-  //     const movie: Movie = data.movie_results[0];
-  //     if (!movie) {
-  //       throw new Error("No movie found");
-  //     }
-  //     const movieWithGenres: MovieWithGenres = {
-  //       ...movie,
-  //       genres: movie.genre_ids
-  //         .map((id) => {
-  //           const genre = genres.find((genre) => genre.id === id);
-  //           return genre?.name || null;
-  //         })
-  //         .filter((name): name is string => name !== null),
-  //     };
-  //     return movieWithGenres;
-  //   } catch (error) {
-  //     console.error(`Failed fetching movie`, error);
-  //     throw error;
-  //   }
-  // };
-
   const fetchMovieById = async ({ url }: URL): Promise<SingleMovie> => {
     try {
       const response = await fetch(url, options);
@@ -148,7 +119,6 @@ export default function useRequest() {
           return item.name;
         }),
       };
-      console.log(data);
       return movie;
     } catch (error) {
       console.error(`Failed fetching movie`, error);
