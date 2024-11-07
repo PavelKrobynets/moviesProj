@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { URL, Genre, Movie, MovieWithGenres } from "../types/type";
+import { URL, Genre, Movie, MovieWithGenres, SingleMovie } from "../types/type";
 
 let globalGenres: Genre[] | null = null;
 let isGenresFetching = false;
@@ -98,6 +98,7 @@ export default function useRequest() {
             .filter(Boolean),
         })
       );
+      console.log(moviesWithGenres[0].id);
       return moviesWithGenres;
     } catch (error) {
       console.error(`Failed fetching movies`, error);
@@ -134,18 +135,24 @@ export default function useRequest() {
   //   }
   // };
 
-  const fetchMovieById = async ({ url }: URL): Promise<MovieWithGenres> => {
-    const genres = await ensureGenresLoaded();
+  const fetchMovieById = async ({ url }: URL): Promise<SingleMovie> => {
     try {
       const response = await fetch(url, options);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
       const data = await response.json();
+      const movie: SingleMovie = {
+        ...data,
+        genres: data.genres.map((item: Genre) => {
+          return item.name;
+        }),
+      };
       console.log(data);
-      return data;
+      return movie;
     } catch (error) {
       console.error(`Failed fetching movie`, error);
+      throw error;
     }
   };
 

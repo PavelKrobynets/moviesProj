@@ -19,7 +19,6 @@ export default function Search({ getMovies }: SearchProps) {
       if (ref.current) {
         const value = ref.current.value;
         setInput(value);
-
         if (value.trim()) {
           try {
             const searchResults = await fetchMoviesWithGenres({

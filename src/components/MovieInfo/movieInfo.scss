@@ -1,8 +1,8 @@
 .movie-info {
-  width: 950px;
+  width: 750px;
   columns: 2;
   margin: 70px auto;
-  padding: 15px;
+  padding: 25px;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.05),
@@ -12,20 +12,26 @@
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 25px;
+  gap: 1px;
 
   &__image {
     width: 80%;
-    height: 500px;
-    object-fit: cover;
+    height: 90%;
+    margin-left: 2%;
+    object-fit: fill;
     border-radius: 20px;
   }
 
   &__container {
-    padding-top: 30px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    line-height: 10px;
+    gap: 1px;
+    line-height: 18px;
+    margin: 0;
+
+    p {
+      margin: 10px;
+    }
 
     &__title {
       font-size: 28px;

@@ -22,3 +22,17 @@ export interface MovieWithGenres extends Omit<Movie, "genre_ids"> {
 export interface URL {
   url: string;
 }
+
+export interface SingleMovie {
+  adult: boolean;
+  poster_path: string;
+  genres: string[];
+  id: number;
+  title: string;
+  overview: string;
+  release_date: string;
+  runtime: number;
+  status: string;
+  tagline: string;
+  vote_average: number;
+}
